@@ -1,0 +1,5 @@
+{
+  "name": "fibonacci",
+  "iterations": 5,
+  "inputs": [1, 5, 10, 15]
+}

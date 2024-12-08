@@ -1,0 +1,7 @@
+{
+  "name": "fibonacci-deno",
+  "scripts": {
+    "benchmark": "deno run --allow-write main.ts",
+    "clean": "rimraf results.json"
+  }
+}
