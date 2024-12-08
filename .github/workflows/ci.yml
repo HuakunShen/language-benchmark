@@ -39,7 +39,13 @@ jobs:
           VCPKG_ROOT: ${{ github.workspace }}/vcpkg
         run: |
           vcpkg install nlohmann-json
-
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 23
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
       - name: Setup CMake (Unix-like)
         if: matrix.os != 'windows-latest'
         run: |
