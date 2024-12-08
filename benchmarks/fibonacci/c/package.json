@@ -1,0 +1,7 @@
+{
+    "name": "fibonacci-c",
+    "scripts": {
+        "benchmark": "bun benchmark.ts",
+        "clean": "rimraf fibonacci"
+    }
+}

@@ -8,14 +8,14 @@ using json = nlohmann::json;
 using namespace std;
 
 // Function to calculate Fibonacci
-int fibonacci(int n) {
+long fibonacci(long n) {
     if (n <= 1) return n;
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 int main() {
     // Read configuration from JSON file
-    std::ifstream configFile("../config.json");
+    std::ifstream configFile("../../config.json");
     if (!configFile.is_open()) {
         cerr << "Could not open config.json file." << endl;
         return 1;
@@ -29,11 +29,14 @@ int main() {
     // Iterate based on configuration
     for (int i = 0; i < config["iterations"]; ++i) {
         for (int x : config["inputs"]) {
+            cout << "Calculating Fibonacci for " << x << endl;
             auto start = chrono::high_resolution_clock::now();
-            fibonacci(x);
+            auto result = fibonacci(x);
+            cout << "Result: " << result << endl;
             auto end = chrono::high_resolution_clock::now();
 
             double duration = chrono::duration<double, std::milli>(end - start).count();
+            cout << "Time taken: " << duration << "ms" << endl;
             results.push_back({{"input", x}, {"time", duration}});
         }
     }

@@ -41,6 +41,8 @@ func main() {
 			start := time.Now()
 			fibonacci(x)
 			duration := time.Since(start).Seconds() * 1000.0 // Convert to milliseconds
+			// print result
+			fmt.Printf("Fibonacci(%d) took %fms\n", x, duration)
 			results = append(results, map[string]interface{}{
 				"input": x,
 				"time":  duration,

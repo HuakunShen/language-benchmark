@@ -177,3 +177,4 @@ dist
 results.json
 .turbo/
 target/
+.zig-cache

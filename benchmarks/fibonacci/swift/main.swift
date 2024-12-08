@@ -29,6 +29,7 @@ for _ in 0..<iterations {
         let timeInterval = Double(nanoTime) / 1_000_000  // Convert to milliseconds
 
         results.append(["input": x, "time": timeInterval])
+        print("Input: \(x), Time: \(timeInterval) ms")
     }
 }
 

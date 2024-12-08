@@ -1,0 +1,8 @@
+{
+  "name": "zig-fib",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "clean": "rimraf results.json"
+  }
+}
+

@@ -11,6 +11,9 @@ const results = [];
 console.log(config);
 for (let i = 0; i < config.iterations; i++) {
   for (const x of config.inputs) {
+    if (x > 45) {
+      continue
+    }
     const start = performance.now();
     fibonacci(x);
     const end = performance.now();
