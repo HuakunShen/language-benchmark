@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Bun
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      # Install Deno
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      # Install CMake
+      - name: Setup CMake (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Windows Dep
+        if: matrix.os == 'windows-latest'
+        run: |
+          vcpkg install nlohmann-json
+
+      - name: Setup CMake (Unix-like)
+        if: matrix.os != 'windows-latest'
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update
+            sudo apt-get install -y cmake
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install cmake
+            brew install nlohmann-json
+          fi
+        shell: bash
+
+      # Verify installations
+      - name: Verify installations
+        run: |
+          bun --version
+          deno --version
+          cmake --version
+
+      # Build and test steps can be added here
+      - name: Build
+        run: |
+          bun install
+          # Add your build commands here
+
+      - name: Test
+        run: |
+          bun run benchmark
