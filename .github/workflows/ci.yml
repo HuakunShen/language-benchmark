@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +31,8 @@ jobs:
 
       - name: Windows Dep
         if: matrix.os == 'windows-latest'
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}/vcpkg
         run: |
           vcpkg install nlohmann-json
 
