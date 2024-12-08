@@ -60,5 +60,9 @@ jobs:
           # Add your build commands here
 
       - name: Test
+        env:
+          POCKETBASE_URL: ${{ secrets.POCKETBASE_URL }}
+          POCKETBASE_USERNAME: ${{ secrets.POCKETBASE_USERNAME }}
+          POCKETBASE_PASSWORD: ${{ secrets.POCKETBASE_PASSWORD }}
         run: |
           bun run benchmark
