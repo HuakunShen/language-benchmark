@@ -1,9 +1,14 @@
 {
-  "name": "test",
+  "name": "benchmark",
+  
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "benchmark": "bun benchmark.ts"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "common": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

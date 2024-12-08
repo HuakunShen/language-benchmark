@@ -1,0 +1,7 @@
+{
+  "name": "fibonacci-rs",
+  "scripts": {
+    "benchmark": "cargo run --release",
+    "clean": "rimraf results.json"
+  }
+}

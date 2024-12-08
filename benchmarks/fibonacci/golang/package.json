@@ -1,0 +1,7 @@
+{
+    "name": "fibonacci-golang",
+    "scripts": {
+        "benchmark": "go run main.go",
+        "clean": "rimraf results.json"
+    }
+}
