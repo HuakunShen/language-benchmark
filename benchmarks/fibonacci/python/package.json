@@ -1,0 +1,7 @@
+{
+  "name": "fibonacci-py",
+  "scripts": {
+    "benchmark": "python main.py",
+    "clean": "rimraf results.json"
+  }
+}

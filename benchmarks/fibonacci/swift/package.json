@@ -1,0 +1,7 @@
+{
+    "name": "fibonacci-swift",
+    "scripts": {
+        "benchmark": "swift main.swift",
+        "clean": "rimraf results.json"
+    }
+}

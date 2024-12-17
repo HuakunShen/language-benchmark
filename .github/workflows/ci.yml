@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Bun
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '>=1.23.0'
+      - uses: mlugg/setup-zig@v1
+      # Install Deno
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      # Install CMake
+      - name: Setup CMake (Windows)
+        if: matrix.os == 'windows-latest'
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Windows Dep
+        if: matrix.os == 'windows-latest'
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}/vcpkg
+        run: |
+          vcpkg install nlohmann-json
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 23
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Setup CMake (Unix-like)
+        if: matrix.os != 'windows-latest'
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update
+            sudo apt-get install -y cmake nlohmann-json3-dev
+          elif [ "$RUNNER_OS" == "macOS" ]; then
+            brew install cmake
+            brew install nlohmann-json
+          fi
+        shell: bash
+
+      # Verify installations
+      - name: Verify installations
+        run: |
+          bun --version
+          deno --version
+          cmake --version
+
+      # Build and test steps can be added here
+      - name: Build
+        run: |
+          bun install
+          # Add your build commands here
+
+      - name: Test
+        env:
+          POCKETBASE_URL: ${{ secrets.POCKETBASE_URL }}
+          POCKETBASE_USERNAME: ${{ secrets.POCKETBASE_USERNAME }}
+          POCKETBASE_PASSWORD: ${{ secrets.POCKETBASE_PASSWORD }}
+        run: |
+          bun run benchmark
