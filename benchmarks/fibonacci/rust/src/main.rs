@@ -25,6 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let start = Instant::now();
             fibonacci(x);
             let duration = start.elapsed();
+            println!("fibonacci({}) = {}; took {}ms", x, fibonacci(x), duration.as_millis());
             results.push(json!({
                 "input": x,
                 "time": duration.as_secs_f64() * 1000.0 // Convert to milliseconds

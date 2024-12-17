@@ -38,13 +38,14 @@ public class Main {
             for (JsonNode inputNode : inputs) {
                 long input = inputNode.asLong(0);
                 long startTime = System.nanoTime();
-                fibonacci(input);
+                long fib = fibonacci(input);
                 long duration = System.nanoTime() - startTime;
 
                 ObjectNode result = mapper.createObjectNode();
                 result.put("input", input);
                 result.put("time", duration / 1_000_000.0); // Convert nanoseconds to milliseconds
                 results.add(result);
+                System.out.println("fib(" + input + ") = " + fib + " took " + duration / 1_000_000.0 + "ms");
             }
         }
 
