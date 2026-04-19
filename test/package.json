@@ -4,7 +4,8 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "benchmark": "bun benchmark.ts"
+    "benchmark": "bun benchmark.ts",
+    "cold-start": "bun cold-start.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

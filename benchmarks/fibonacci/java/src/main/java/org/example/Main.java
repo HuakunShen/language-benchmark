@@ -21,8 +21,12 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        // read ../config.json and get its "iterations" attribute
-        String configStr = new String(Files.readAllBytes(Paths.get("../config.json")));
+        // read config file
+        String configPath = System.getenv("BENCHMARK_CONFIG");
+        if (configPath == null) configPath = "../config.json";
+        String outputPath = System.getenv("BENCHMARK_OUTPUT");
+        if (outputPath == null) outputPath = "results.json";
+        String configStr = new String(Files.readAllBytes(Paths.get(configPath)));
         ObjectMapper mapper = new ObjectMapper();
         JsonNode config = mapper.readTree(configStr);
 
@@ -52,7 +56,7 @@ public class Main {
         // Write results to file
         ObjectNode resultsWrapper = mapper.createObjectNode();
         resultsWrapper.set("results", mapper.valueToTree(results));
-        mapper.writerWithDefaultPrettyPrinter().writeValue(new File("results.json"), results);
+        mapper.writerWithDefaultPrettyPrinter().writeValue(new File(outputPath), results);
 
     }
 }

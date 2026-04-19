@@ -1,5 +1,3 @@
-import config from "../config.json";
-
 function fibonacci(n: number): number {
   if (n <= 1) return n;
   return fibonacci(n - 1) + fibonacci(n - 2);
@@ -7,13 +5,12 @@ function fibonacci(n: number): number {
 
 const results = [];
 
-// const config = await Bun.file("../config.json").json();
+const configPath = process.env.BENCHMARK_CONFIG ?? "../config.json";
+const outputPath = process.env.BENCHMARK_OUTPUT ?? "results.json";
+const config = await Bun.file(configPath).json();
 console.log(config);
 for (let i = 0; i < config.iterations; i++) {
   for (const x of config.inputs) {
-    if (x > 45) {
-      continue
-    }
     const start = performance.now();
     fibonacci(x);
     const end = performance.now();
@@ -21,4 +18,4 @@ for (let i = 0; i < config.iterations; i++) {
   }
 }
 
-Bun.write("results.json", JSON.stringify(results, null, 2));
+Bun.write(outputPath, JSON.stringify(results, null, 2));

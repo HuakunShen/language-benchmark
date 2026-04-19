@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "benchmark": "node index.js",
-    "clean": "rimraf results.json"
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json node index.js",
+    "clean": "rimraf results.json cold-start-results.json"
   },
   "keywords": [],
   "author": "",

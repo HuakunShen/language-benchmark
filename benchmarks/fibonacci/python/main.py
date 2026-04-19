@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 def fibonacci(n):
@@ -8,8 +9,10 @@ def fibonacci(n):
 
 def main():
     # Read config file
+    config_path = os.environ.get("BENCHMARK_CONFIG", "../config.json")
+    output_path = os.environ.get("BENCHMARK_OUTPUT", "results.json")
     try:
-        with open('../config.json', 'r') as f:
+        with open(config_path, 'r') as f:
             config = json.load(f)
     except Exception as e:
         print(f"Error reading config file: {e}")
@@ -35,7 +38,7 @@ def main():
 
     # Write results to file
     try:
-        with open('results.json', 'w') as f:
+        with open(output_path, 'w') as f:
             json.dump(results, f, indent=2)
     except Exception as e:
         print(f"Error writing results file: {e}")

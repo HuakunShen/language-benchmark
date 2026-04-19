@@ -1,5 +1,3 @@
-import config from "../config.json" with { type: "json" };
-
 function fibonacci(n: number): number {
   if (n <= 1) return n;
   return fibonacci(n - 1) + fibonacci(n - 2);
@@ -7,13 +5,12 @@ function fibonacci(n: number): number {
 
 const results = [];
 
-// const config = await Bun.file("../config.json").json();
+const configPath = Deno.env.get("BENCHMARK_CONFIG") ?? "../config.json";
+const outputPath = Deno.env.get("BENCHMARK_OUTPUT") ?? "results.json";
+const config = JSON.parse(await Deno.readTextFile(configPath));
 console.log(config);
 for (let i = 0; i < config.iterations; i++) {
   for (const x of config.inputs) {
-    if (x > 45) {
-      continue
-    }
     const start = performance.now();
     fibonacci(x);
     const end = performance.now();
@@ -22,4 +19,4 @@ for (let i = 0; i < config.iterations; i++) {
 }
 console.log(results);
 
-Deno.writeTextFileSync("results.json", JSON.stringify(results, null, 2));
+Deno.writeTextFileSync(outputPath, JSON.stringify(results, null, 2));

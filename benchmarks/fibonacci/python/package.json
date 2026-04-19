@@ -1,7 +1,8 @@
 {
   "name": "fibonacci-py",
   "scripts": {
-    "benchmark": "python main.py",
-    "clean": "rimraf results.json"
+    "benchmark": "python3 main.py",
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json python3 main.py",
+    "clean": "rimraf results.json cold-start-results.json"
   }
 }

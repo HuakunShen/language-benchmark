@@ -6,7 +6,9 @@ func fibonacci(_ n: Int) -> Int {
 }
 
 // Read config file
-let configURL = URL(fileURLWithPath: "../config.json")
+let configPath = ProcessInfo.processInfo.environment["BENCHMARK_CONFIG"] ?? "../config.json"
+let outputPath = ProcessInfo.processInfo.environment["BENCHMARK_OUTPUT"] ?? "results.json"
+let configURL = URL(fileURLWithPath: configPath)
 guard let configData = try? Data(contentsOf: configURL),
     let config = try? JSONSerialization.jsonObject(with: configData, options: []) as? [String: Any]
 else {
@@ -35,5 +37,5 @@ for _ in 0..<iterations {
 
 // Write results to file
 let resultsData = try! JSONSerialization.data(withJSONObject: results, options: [.prettyPrinted])
-let resultsURL = URL(fileURLWithPath: "results.json")
+let resultsURL = URL(fileURLWithPath: outputPath)
 try! resultsData.write(to: resultsURL)

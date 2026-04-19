@@ -30,12 +30,38 @@ double get_time_ms(struct timespec start, struct timespec end)
 
 int main()
 {
-    // Inputs for the Fibonacci benchmark
-    long inputs[] = {1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47};
-    size_t input_count = sizeof(inputs) / sizeof(inputs[0]);
+    // Inputs: read from BENCHMARK_INPUTS env var (comma-separated) or fall back to defaults
+    long inputs[64];
+    size_t input_count = 0;
+    const char *inputs_env = getenv("BENCHMARK_INPUTS");
+    if (inputs_env)
+    {
+        char buf[512];
+        strncpy(buf, inputs_env, sizeof(buf) - 1);
+        buf[sizeof(buf) - 1] = '\0';
+        char *tok = strtok(buf, ",");
+        while (tok && input_count < 64)
+        {
+            inputs[input_count++] = atol(tok);
+            tok = strtok(NULL, ",");
+        }
+    }
+    else
+    {
+        long defaults[] = {1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47};
+        input_count = sizeof(defaults) / sizeof(defaults[0]);
+        memcpy(inputs, defaults, sizeof(defaults));
+    }
+
+    int iterations = 3;
+    const char *iters_env = getenv("BENCHMARK_ITERATIONS");
+    if (iters_env) iterations = atoi(iters_env);
+
+    const char *output_file = getenv("BENCHMARK_OUTPUT");
+    if (!output_file) output_file = "results.json";
 
     // Allocate memory for results
-    size_t max_results = 3 * input_count;
+    size_t max_results = (size_t)iterations * input_count;
     BenchmarkResult *results = malloc(max_results * sizeof(BenchmarkResult));
     if (!results)
     {
@@ -45,7 +71,7 @@ int main()
     size_t result_count = 0;
 
     // Perform the benchmark
-    for (int iteration = 0; iteration < 3; ++iteration)
+    for (int iteration = 0; iteration < iterations; ++iteration)
     {
         for (size_t i = 0; i < input_count; ++i)
         {
@@ -67,7 +93,7 @@ int main()
     }
 
     // Create JSON output
-    FILE *file = fopen("results.json", "w");
+    FILE *file = fopen(output_file, "w");
     if (!file)
     {
         fprintf(stderr, "Failed to open results.json for writing\n");

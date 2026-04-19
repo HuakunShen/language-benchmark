@@ -16,7 +16,15 @@ func fibonacci(n uint64) uint64 {
 
 func main() {
 	// Read config file
-	configData, err := os.ReadFile("../config.json")
+	configPath := os.Getenv("BENCHMARK_CONFIG")
+	if configPath == "" {
+		configPath = "../config.json"
+	}
+	outputPath := os.Getenv("BENCHMARK_OUTPUT")
+	if outputPath == "" {
+		outputPath = "results.json"
+	}
+	configData, err := os.ReadFile(configPath)
 	if err != nil {
 		fmt.Println("Error reading config file:", err)
 		return
@@ -57,7 +65,7 @@ func main() {
 		return
 	}
 
-	err = os.WriteFile("results.json", resultsJSON, 0644)
+	err = os.WriteFile(outputPath, resultsJSON, 0644)
 	if err != nil {
 		fmt.Println("Error writing results file:", err)
 		return

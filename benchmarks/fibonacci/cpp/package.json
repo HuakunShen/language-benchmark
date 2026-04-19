@@ -2,6 +2,7 @@
     "name": "fibonacci-cpp",
     "scripts": {
         "benchmark": "bun benchmark.ts",
-        "clean": "rimraf results.json"
+        "cold-start": "bun cold-start-benchmark.ts",
+        "clean": "rimraf results.json cold-start-results.json"
     }
 }

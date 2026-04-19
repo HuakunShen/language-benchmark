@@ -16,6 +16,10 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 }
 
+application {
+    mainClass.set("org.example.Main")
+}
+
 tasks.test {
     useJUnitPlatform()
 }

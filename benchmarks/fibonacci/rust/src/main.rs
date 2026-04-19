@@ -12,7 +12,9 @@ fn fibonacci(n: u64) -> u64 {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Read config file
-    let config_str = fs::read_to_string("../config.json")?;
+    let config_path = std::env::var("BENCHMARK_CONFIG").unwrap_or_else(|_| "../config.json".to_string());
+    let output_path = std::env::var("BENCHMARK_OUTPUT").unwrap_or_else(|_| "results.json".to_string());
+    let config_str = fs::read_to_string(&config_path)?;
     let config: Value = serde_json::from_str(&config_str)?;
 
     println!("{}", config);
@@ -35,7 +37,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Write results to file
     let results_json = serde_json::to_string_pretty(&results)?;
-    fs::write("results.json", results_json)?;
+    fs::write(&output_path, results_json)?;
 
     Ok(())
 }

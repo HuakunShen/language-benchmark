@@ -23,7 +23,15 @@ struct Result {
 
 fn main() {
 	// Read config file
-	config_content := os.read_file('../config.json') or {
+	mut config_path := os.getenv('BENCHMARK_CONFIG')
+	if config_path == '' {
+		config_path = '../config.json'
+	}
+	mut output_path := os.getenv('BENCHMARK_OUTPUT')
+	if output_path == '' {
+		output_path = 'results.json'
+	}
+	config_content := os.read_file(config_path) or {
 		println('Failed to read config file: ${err}')
 		return
 	}
@@ -55,7 +63,7 @@ fn main() {
 
 	// Write results to file
 	results_json := json.encode(results)
-	os.write_file('results.json', results_json) or {
+	os.write_file(output_path, results_json) or {
 		println('Failed to write results: ${err}')
 		return
 	}

@@ -1,4 +1,3 @@
-import config from "../config.json" with { type: "json" };
 import fs from "fs";
 
 function fibonacci(n) {
@@ -8,13 +7,12 @@ function fibonacci(n) {
 
 const results = [];
 
-// const config = await Bun.file("../config.json").json();
+const configPath = process.env.BENCHMARK_CONFIG ?? "../config.json";
+const outputPath = process.env.BENCHMARK_OUTPUT ?? "results.json";
+const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
 console.log(config);
 for (let i = 0; i < config.iterations; i++) {
   for (const x of config.inputs) {
-    if (x > 45) {
-      continue
-    }
     const start = performance.now();
     fibonacci(x);
     const end = performance.now();
@@ -22,4 +20,4 @@ for (let i = 0; i < config.iterations; i++) {
   }
 }
 
-fs.writeFileSync("results.json", JSON.stringify(results, null, 2));
+fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));

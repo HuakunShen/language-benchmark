@@ -2,6 +2,7 @@
     "name": "fibonacci-golang",
     "scripts": {
         "benchmark": "go run main.go",
-        "clean": "rimraf results.json"
+        "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json go run main.go",
+        "clean": "rimraf results.json cold-start-results.json"
     }
 }

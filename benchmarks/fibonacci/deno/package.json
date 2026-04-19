@@ -1,7 +1,8 @@
 {
   "name": "fibonacci-deno",
   "scripts": {
-    "benchmark": "deno run --allow-write main.ts",
-    "clean": "rimraf results.json"
+    "benchmark": "deno run --allow-write --allow-read --allow-env main.ts",
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json deno run --allow-write --allow-read --allow-env main.ts",
+    "clean": "rimraf results.json cold-start-results.json"
   }
 }

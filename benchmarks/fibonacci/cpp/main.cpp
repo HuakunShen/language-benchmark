@@ -15,7 +15,11 @@ long fibonacci(long n) {
 
 int main() {
     // Read configuration from JSON file
-    std::ifstream configFile("../../config.json");
+    const char* configEnv = std::getenv("BENCHMARK_CONFIG");
+    std::string configPath = configEnv ? configEnv : "../../config.json";
+    const char* outputEnv = std::getenv("BENCHMARK_OUTPUT");
+    std::string outputPath = outputEnv ? outputEnv : "results.json";
+    std::ifstream configFile(configPath);
     if (!configFile.is_open()) {
         cerr << "Could not open config.json file." << endl;
         return 1;
@@ -42,7 +46,7 @@ int main() {
     }
 
     // Write results to JSON file
-    std::ofstream resultsFile("results.json");
+    std::ofstream resultsFile(outputPath);
     if (!resultsFile.is_open()) {
         cerr << "Could not open results.json file for writing." << endl;
         return 1;
