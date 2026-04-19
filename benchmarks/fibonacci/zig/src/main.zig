@@ -21,7 +21,7 @@ pub fn main() !void {
     var results = std.ArrayList(BenchmarkResult).init(allocator);
     defer results.deinit();
 
-    const inputs = [_]u64{ 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47 };
+    const inputs = [_]u64{ 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 46, 47, 48, 49, 50 };
 
     for (0..3) |_| {
         for (inputs) |input| {
