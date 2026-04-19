@@ -1,0 +1,21 @@
+{
+  "name": "benchmark",
+  
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "cold-start": "bun cold-start.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "common": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "pocketbase": "^0.22.1",
+    "zod": "^3.23.8"
+  }
+}

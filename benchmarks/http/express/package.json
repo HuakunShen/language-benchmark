@@ -1,0 +1,10 @@
+{
+  "name": "http-express",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "clean": "rimraf results.json"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

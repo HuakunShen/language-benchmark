@@ -1,0 +1,17 @@
+{
+  "name": "bun",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "benchmark": "bun run index.ts",
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json bun run index.ts",
+    "clean": "rimraf results.json cold-start-results.json"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "common": "workspace:*"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

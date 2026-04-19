@@ -1,0 +1,8 @@
+{
+    "name": "fibonacci-c",
+    "scripts": {
+        "benchmark": "bun benchmark.ts",
+        "cold-start": "bun cold-start-benchmark.ts",
+        "clean": "rimraf fibonacci results.json cold-start-results.json"
+    }
+}

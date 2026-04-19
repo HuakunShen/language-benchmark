@@ -1,0 +1,23 @@
+{
+  "name": "language-benchmark",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "benchmark": "bun --filter benchmark benchmark",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "rimraf": "^6.0.1",
+    "turbo": "^2.3.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "bun@1.1.38",
+  "workspaces": [
+    "benchmarks/*/*",
+    "common/ts",
+    "test"
+  ]
+}

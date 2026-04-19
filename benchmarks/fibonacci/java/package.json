@@ -1,0 +1,8 @@
+{
+  "name": "fibonacci-java",
+  "scripts": {
+    "benchmark": "BENCHMARK_CONFIG=../config.json BENCHMARK_OUTPUT=results.json ./gradlew run --no-daemon -q",
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json ./gradlew run --no-daemon -q",
+    "clean": "rimraf results.json cold-start-results.json"
+  }
+}

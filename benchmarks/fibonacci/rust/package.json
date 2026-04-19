@@ -1,0 +1,8 @@
+{
+  "name": "fibonacci-rs",
+  "scripts": {
+    "benchmark": "cargo run --release",
+    "cold-start": "BENCHMARK_CONFIG=../cold-start-config.json BENCHMARK_OUTPUT=cold-start-results.json cargo run --release",
+    "clean": "rimraf results.json cold-start-results.json"
+  }
+}
