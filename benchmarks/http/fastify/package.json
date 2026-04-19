@@ -1,0 +1,10 @@
+{
+  "name": "http-fastify",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "clean": "rimraf results.json"
+  },
+  "dependencies": {
+    "fastify": "^5.2.0"
+  }
+}

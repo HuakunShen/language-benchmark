@@ -58,6 +58,9 @@ jobs:
           fi
         shell: bash
 
+      - name: Install bombardier
+        run: go install github.com/codesenberg/bombardier@latest
+
       # Verify installations
       - name: Verify installations
         run: |

@@ -1,0 +1,7 @@
+{
+  "name": "http-gin",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "clean": "rimraf results.json server"
+  }
+}

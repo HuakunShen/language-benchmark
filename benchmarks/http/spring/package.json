@@ -1,0 +1,7 @@
+{
+  "name": "http-spring",
+  "scripts": {
+    "benchmark": "bun benchmark.ts",
+    "clean": "rimraf results.json build .gradle"
+  }
+}
